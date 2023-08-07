@@ -5,7 +5,7 @@ import Globe from '@/components/Globe'
 
 export default function App() {
   return (
-    <Canvas camera={{ position: [0, 0, 15] }}>
+    <Canvas camera={{ position: [0, 0, 10] }}>
         <Globe />
     </Canvas>
   )
