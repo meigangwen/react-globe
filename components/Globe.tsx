@@ -27,6 +27,8 @@ export default function Globe() {
             <shaderMaterial 
                 vertexShader={atmosphereVertexShader}
                 fragmentShader={atmosphereFragmentShader}
+                //blending={THREE.AdditiveBlending}
+                //side={THREE.BackSide}
             />
             </mesh>  
         </>
