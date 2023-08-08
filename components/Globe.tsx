@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useLoader,useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+
 import vertexShader from '@/shaders/vertex.glsl'
 import fragmentShader from '@/shaders/fragment.glsl'
 import atmosphereVertexShader from '@/shaders/atmosphereVertex.glsl'
