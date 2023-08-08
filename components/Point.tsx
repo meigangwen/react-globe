@@ -1,12 +1,23 @@
-import { useRef,useEffect } from 'react'
+import { useRef,useEffect,useState } from 'react'
 import * as THREE from 'three'
+import gsap from 'gsap'
 
 export default function Point(props){
     const ref = useRef()
+    const [hovered, setHovered] = useState(false)
+
     useEffect(() => {
         ref.current.lookAt(0,0,0)
         ref.current.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0,0,-0.4))
-    })
+        gsap.to(ref.current.scale,{
+            z: 0.4,
+            duration: 2,
+            yoyo: true,
+            repeat: -1,
+            ease: 'linear',
+            delay: Math.random()
+        })
+    }, []) //calling useEffect with an empty dependency array
 
     const lat = (props.lat / 180) * Math.PI
     const lon = (props.lon / 180) * Math.PI
@@ -19,9 +30,15 @@ export default function Point(props){
         <mesh 
             position={[x, y, z]}
             ref = {ref}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)} 
         >
             <boxGeometry args={[0.1, 0.1, 0.8]} />
-            <meshBasicMaterial color='#ff0000'/>
+            <meshBasicMaterial 
+                color='#3BF7FF'
+                opacity={hovered? 1.0 : 0.4}
+                transparent={true}
+            />
         </mesh>
     )
 }

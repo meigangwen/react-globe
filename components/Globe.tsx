@@ -24,8 +24,8 @@ export default function Globe() {
         //groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, mouse.x, 0.025)
         
         gsap.to(groupRef.current.rotation, {
-            x: mouse.y * 2,
-            y: mouse.x * 3,
+            x: mouse.y * 1.8,
+            y: mouse.x * 1.8,
             duration: 2
         })
     })
@@ -34,9 +34,8 @@ export default function Globe() {
         <group
             ref={groupRef}
             onPointerMove={(e) => {
-            mouse.x = (e.clientX / innerWidth) * 2 - 1
-            mouse.y = (e.clientY / innerHeight) * 2 - 1
-            console.log(mouse)
+            mouse.x = ((e.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+            mouse.y = - (e.clientY / innerHeight) * 2 + 1
         }}>
 
             <mesh scale={1.225}> 
