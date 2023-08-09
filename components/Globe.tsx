@@ -15,6 +15,8 @@ export default function Globe() {
     const globeRef = useRef()
     const groupRef = useRef()
     const mouse = {x:0,y:0}
+    const popUpEl = document.querySelector('#popUpEl')
+    //console.log(popUpEl)
 
     useFrame((_, delta) => {
         globeRef.current.rotation.y += 0.1 * delta
@@ -23,11 +25,13 @@ export default function Globe() {
         //groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, mouse.y, 0.025)
         //groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, mouse.x, 0.025)
         
+        /*
         gsap.to(groupRef.current.rotation, {
             x: mouse.y * 1.8,
             y: mouse.x * 1.8,
             duration: 2
         })
+        */
     })
     
     return (
@@ -36,6 +40,10 @@ export default function Globe() {
             onPointerMove={(e) => {
             mouse.x = ((e.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
             mouse.y = - (e.clientY / innerHeight) * 2 + 1
+            gsap.set(popUpEl, {
+                x: e.clientX,
+                y: e.clientY
+            })
         }}>
 
             <mesh scale={1.225}> 

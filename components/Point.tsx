@@ -5,6 +5,7 @@ import gsap from 'gsap'
 export default function Point(props){
     const ref = useRef()
     const [hovered, setHovered] = useState(false)
+    const popUpEl = document.querySelector('#popUpEl')
 
     useEffect(() => {
         ref.current.lookAt(0,0,0)
@@ -30,8 +31,15 @@ export default function Point(props){
         <mesh 
             position={[x, y, z]}
             ref = {ref}
-            onPointerOver={() => setHovered(true)}
-            onPointerOut={() => setHovered(false)} 
+            onPointerOver={(e) => { 
+                setHovered(true)
+                /*
+                gsap.set(popUpEl, {
+                    x: e.clientX,
+                    y: e.clientY
+                })*/ 
+            }}
+            onPointerOut={(e) => setHovered(false)} 
         >
             <boxGeometry args={[0.1, 0.1, 0.8]} />
             <meshBasicMaterial 

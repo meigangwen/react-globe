@@ -1,11 +1,13 @@
 //import { StrictMode } from 'react'
 import App from '@/components/App'
 import { exo2,orbitron } from '@/app/fonts.js'
+import Popup from '@/components/Popup'
 
 export default function Home() {
   return (
     
     <>
+      <Popup />
       <div className='h-full flex flex-row'>
         <div className="w-1/2 flex flex-col justify-center px-8">
           <div className="w-[500px] mx-auto">
