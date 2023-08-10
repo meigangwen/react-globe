@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef,useEffect } from 'react'
 import { useLoader,useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import gsap from 'gsap'
@@ -11,11 +11,11 @@ import atmosphereFragmentShader from '@/shaders/atmosphereFragment.glsl'
 import Point from '@/components/Point'
 import countries from '@/app/countries.json'
 
-export default function Globe() {
+export default function Globe(props) {
     const texture = useLoader(THREE.TextureLoader, './img/globe.jpg')
     const globeRef = useRef()
     const groupRef = useRef()
-    const mouse = {x:0,y:0}
+    let mouse = {x:0,y:0}
     const popUpEl = document.querySelector('#popUpEl')
     const populationEl = document.querySelector('#populationEl')
     const populationValueEl = document.querySelector('#populationValueEl')
@@ -35,6 +35,10 @@ export default function Globe() {
         })
         */
     })
+
+    useEffect(() => {
+        console.log(props.mousex, props.mousey)
+    },[props])
     
     return (
         <group

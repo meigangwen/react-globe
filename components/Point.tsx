@@ -16,21 +16,11 @@ export default function Point(props){
     const y = radius * Math.sin(lat)
     const z = radius * Math.cos(lat) * Math.cos(lon)
 
-    const scale = (props.population / 1000000000) * 0.8
+    const zScale = Math.max((props.population / 1000000000) * 0.8, 0.4)
     
     useEffect(() => {
         ref.current.lookAt(0,0,0)
-        ref.current.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0,0,-0.4))
-        /*
-        gsap.to(ref.current.scale,{
-            z: 0.4,
-            duration: 2,
-            yoyo: true,
-            repeat: -1,
-            ease: 'linear',
-            delay: Math.random()
-        })
-        */
+        ref.current.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0,0,-zScale/2))
     }, []) //calling useEffect with an empty dependency array
    
     return (
@@ -41,7 +31,7 @@ export default function Point(props){
                 setHovered(true)
                 // set information for the popup window
                 populationEl.innerHTML = props.country
-                populationValueEl.innerHTML = props.population
+                populationValueEl.innerHTML = new Intl.NumberFormat().format(props.population)
                 // show the popup window
                 gsap.set(popUpEl, {
                     display: 'block'
@@ -55,7 +45,7 @@ export default function Point(props){
                 })
             }} 
         >
-            <boxGeometry args={[0.1, 0.1, scale]} />
+            <boxGeometry args={[0.1, 0.1, zScale]} />
             <meshBasicMaterial 
                 color='#3BF7FF'
                 opacity={hovered? 1.0 : 0.4}
