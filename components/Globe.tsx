@@ -9,6 +9,7 @@ import atmosphereVertexShader from '@/shaders/atmosphereVertex.glsl'
 import atmosphereFragmentShader from '@/shaders/atmosphereFragment.glsl'
 
 import Point from '@/components/Point'
+import countries from '@/app/countries.json'
 
 export default function Globe() {
     const texture = useLoader(THREE.TextureLoader, './img/globe.jpg')
@@ -16,7 +17,8 @@ export default function Globe() {
     const groupRef = useRef()
     const mouse = {x:0,y:0}
     const popUpEl = document.querySelector('#popUpEl')
-    //console.log(popUpEl)
+    const populationEl = document.querySelector('#populationEl')
+    const populationValueEl = document.querySelector('#populationValueEl')
 
     useFrame((_, delta) => {
         globeRef.current.rotation.y += 0.1 * delta
@@ -40,6 +42,8 @@ export default function Globe() {
             onPointerMove={(e) => {
             mouse.x = ((e.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
             mouse.y = - (e.clientY / innerHeight) * 2 + 1
+            
+            
             gsap.set(popUpEl, {
                 x: e.clientX,
                 y: e.clientY
@@ -68,36 +72,20 @@ export default function Globe() {
                     />
                 </mesh>  
                 
-                <Point
-                    radius = {5}
-                    lat = {23.6345}
-                    lon = {-102.5528}
-                    country = 'Mexico' 
-                />
-                <Point
-                    radius = {5}
-                    lat = {-14.235}
-                    lon = {-51.9253}
-                    country = 'Brazil' 
-                />
-                <Point
-                    radius = {5}
-                    lat = {20.5937}
-                    lon = {78.9629}
-                    country = 'India' 
-                />
-                <Point
-                    radius = {5}
-                    lat = {35.8617}
-                    lon = {104.1954}
-                    country = 'China' 
-                />
-                <Point
-                    radius = {5}
-                    lat = {37.092}
-                    lon = {-95.7129}
-                    country = 'USA' 
-                />
+                { //render all countries as points
+                    countries.map((country,index) => (
+                            <Point
+                                key = {index}
+                                radius = {5}
+                                lat = {country.latlng[0]}
+                                lon = {country.latlng[1]}
+                                country = {country.name.common}
+                                population = {country.population}
+                                popUpEl = {popUpEl}
+                                populationEl = {populationEl}
+                                populationValueEl = {populationValueEl}
+                            />
+                    ))}
             </group>
         </group>
     )
