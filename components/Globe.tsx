@@ -11,7 +11,7 @@ import atmosphereFragmentShader from '@/shaders/atmosphereFragment.glsl'
 import Point from '@/components/Point'
 import countries from '@/app/countries.json'
 
-export default function Globe(props) {
+export default function Globe() {
     const texture = useLoader(THREE.TextureLoader, './img/globe.jpg')
     const globeRef = useRef()
     const groupRef = useRef()
@@ -36,23 +36,18 @@ export default function Globe(props) {
         */
     })
 
-    useEffect(() => {
-        console.log(props.mousex, props.mousey)
-    },[props])
-    
     return (
         <group
             ref={groupRef}
             onPointerMove={(e) => {
-            mouse.x = ((e.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
-            mouse.y = - (e.clientY / innerHeight) * 2 + 1
-            
-            
-            gsap.set(popUpEl, {
-                x: e.clientX,
-                y: e.clientY
-            })
-        }}>
+                mouse.x = ((e.clientX - innerWidth / 2) / (innerWidth / 2)) * 2 - 1
+                mouse.y = - (e.clientY / innerHeight) * 2 + 1
+                gsap.set(popUpEl, {
+                    x: e.clientX,
+                    y: e.clientY
+                })
+            }}
+        >
 
             <mesh scale={1.225}> 
                 <sphereGeometry args={[5, 50, 50]} />
